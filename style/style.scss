@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 * {
   padding: 0;
   margin: 0;
-    font-family: "Poppins", sans-serif;
-    box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
 .header {
   width: 100%;
@@ -17,7 +17,6 @@
 }
 
 main {
-
   .upper-btn-box {
     height: 100px;
     width: 100%;
@@ -99,10 +98,9 @@ main {
       }
     }
   }
-  .hide{
+  .hide {
     display: none !important;
-
-}
+  }
   .modal {
     width: 60%;
     padding: 10px;
@@ -111,20 +109,20 @@ main {
     left: 50%;
     height: auto;
     background-color: #f2f2f2;
-    display: flex ;
+    display: flex;
     transform: translate(-50%, -50%);
     border-top: 20px groove #2889ad;
     .close-icon {
-        position: absolute;
-        right: -19px;
-        top: -40px;
-        font-size: 40px;
-        background-color: #fff;
-        border-radius: 555px;
-        color: #e96161;
-        cursor: pointer;
+      position: absolute;
+      right: -19px;
+      top: -40px;
+      font-size: 40px;
+      background-color: #fff;
+      border-radius: 555px;
+      color: #e96161;
+      cursor: pointer;
     }
-    
+
     .left-modal {
       width: 30%;
       height: 100%;
@@ -139,18 +137,25 @@ main {
         }
         i {
           font-size: 30px;
-          padding: 10px;
+          width: 50px;
+          height: 50px;
+          padding: 50px;
           position: absolute;
-          right: 60px;
-          top: 90px;
+          right: 0%;
+          transform: translate(-50%, 50%);
+          top: 0%;
           cursor: pointer;
         }
         input {
-          width: 30px;
+          width: 50px;
+          height: 50px;
+          padding: 50px;
           opacity: 0;
           position: absolute;
-          right: 70px;
-          top: 105px;
+          right: 0%;
+          transform: translate(-50%, 50%);
+          top: 0%;
+          cursor: pointer;
         }
       }
     }
@@ -168,16 +173,16 @@ main {
           font-size: 22px;
           font-weight: bold;
         }
-        input{
-            width: 70%;
-            outline: none;
+        input {
+          width: 70%;
+          outline: none;
           font-size: 22px;
           border: none;
-            background-color: transparent;
-            border-bottom: 3px solid #007728;
+          background-color: transparent;
+          border-bottom: 3px solid #007728;
         }
-    }
-    button {
+      }
+      button {
         width: 48%;
         border: none;
         outline: none;
@@ -190,6 +195,6 @@ main {
     }
   }
 }
-button:disabled{
-    filter: grayscale(80%);
+button:disabled {
+  filter: grayscale(80%);
 }

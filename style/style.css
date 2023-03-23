@@ -137,18 +137,25 @@ main .modal .left-modal .img-box img {
 }
 main .modal .left-modal .img-box i {
   font-size: 30px;
-  padding: 10px;
+  width: 50px;
+  height: 50px;
+  padding: 50px;
   position: absolute;
-  right: 60px;
-  top: 90px;
+  right: 0%;
+  transform: translate(-50%, 50%);
+  top: 0%;
   cursor: pointer;
 }
 main .modal .left-modal .img-box input {
-  width: 30px;
+  width: 50px;
+  height: 50px;
+  padding: 50px;
   opacity: 0;
   position: absolute;
-  right: 70px;
-  top: 105px;
+  right: 0%;
+  transform: translate(-50%, 50%);
+  top: 0%;
+  cursor: pointer;
 }
 main .modal .right-modal {
   width: 70%;
