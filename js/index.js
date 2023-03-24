@@ -13,7 +13,7 @@ let productName = document.getElementById("productName");
 let sellerName = document.getElementById("sellerName");
 let email = document.getElementById("email");
 let price = document.getElementById("price");
-let Catogories = document.getElementById("Catogories");
+let catogories = document.getElementById("catogories");
 let registerBtn = document.querySelector("#register-btn");
 let updateBtn = document.querySelector("#update-btn");
 let clearFilter = document.querySelector("#clearFilter");
@@ -27,6 +27,14 @@ const openAddWindow = () => {
     modal.classList.remove("hide");
     registerBtn.disabled = false;
     updateBtn.disabled = true;
+    const randomId = function (length = 6) {
+      let rand = Math.random()
+        .toString(36)
+        .substring(2, length + 2);
+      return rand;
+    };
+
+    id.innerHTML = randomId(9);
   }
 };
 const closeAddWindow = () => {
@@ -51,12 +59,12 @@ registerBtn.onclick = function (e) {
 };
 const registrationData = () => {
   userData.push({
-    id: id.value,
+    id: id.innerHTML,
     productName: productName.value,
     sellerName: sellerName.value,
     email: email.value,
     price: price.value,
-    Catogories: Catogories.value,
+    catogories: catogories.value,
     profilePic: imgUrl === undefined ? "./../img/avatar.jpeg" : imgUrl,
   });
 
@@ -80,11 +88,15 @@ const getDataFromLocal = () => {
     <td>${data.id}</td>
     <td>${data.productName}</td>
     <td>${data.price}</td>
-    <td>${data.Catogories}</td>
+    <td>${data.catogories}</td>
     <td>${data.sellerName}</td>
     <td>${data.email}</td>
     <td>
-      <button class="eye-btn"><i class="fa fa-eye"></i></button>
+    <button class="eye-btn"><i class="fa fa-pencil"></i></button>
+    <button class="eye-btn"><i class="fa fa-eye"></i>
+    <a href="./view.html?id=${data.id}" class="card-link">View</a>
+    
+    </button>
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
@@ -133,26 +145,26 @@ const getDataFromLocal = () => {
       let sellerNameEl = td[4].innerHTML;
       let emailEl = td[5].innerHTML;
       let priceEl = td[6].innerHTML;
-      let CatogoriesEl = td[7].innerHTML;
+      let catogoriesEl = td[7].innerHTML;
       addToggle.click();
       registerBtn.disabled = true;
       updateBtn.disabled = false;
-      id.value = idEl;
+      id.innerHTML = idEl;
       productName.value = productNameEl;
       sellerName.value = sellerNameEl;
       email.value = emailEl;
       price.value = priceEl;
-      Catogories.value = CatogoriesEl;
+      catogories.value = catogoriesEl;
       profilePic.src = profilePicEl;
       updateBtn.onclick = function (e) {
         e.preventDefault();
         userData[index] = {
-          id: id.value,
+          id: id.innerHTML,
           productName: productName.value,
           sellerName: sellerName.value,
           email: email.value,
           price: price.value,
-          Catogories: Catogories.value,
+          catogories: catogories.value,
           profilePic: uploadPic.value === "" ? profilePic.src : imgUrl,
         };
         localStorage.setItem("userData", JSON.stringify(userData));
@@ -198,7 +210,7 @@ function searchFuc() {
     let SearchbyLname = tr[i].getElementsByTagName("TD")[4].innerHTML;
     let SearchbyEmail = tr[i].getElementsByTagName("TD")[5].innerHTML;
     let Searchbyprice = tr[i].getElementsByTagName("TD")[6].innerHTML;
-    let SearchbyCatogories = tr[i].getElementsByTagName("TD")[7].innerHTML;
+    let Searchbycatogories = tr[i].getElementsByTagName("TD")[7].innerHTML;
 
     if (SeachbyId.toLowerCase().indexOf(filter) > -1) {
       tr[i].style.display = "";
@@ -210,7 +222,7 @@ function searchFuc() {
       tr[i].style.display = "";
     } else if (Searchbyprice.toLowerCase().indexOf(filter) > -1) {
       tr[i].style.display = "";
-    } else if (SearchbyCatogories.toLowerCase().indexOf(filter) > -1) {
+    } else if (Searchbycatogories.toLowerCase().indexOf(filter) > -1) {
       tr[i].style.display = "";
     } else {
       tr[i].style.display = "none";
@@ -281,10 +293,12 @@ productFilter.onchange = function () {
       a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
     );
     getDataFromLocal();
-  } else if (value == "Catogories") {
+  } else if (value == "catogories") {
     userData.sort((a, b) =>
-      a.Catogories.toLowerCase() > b.Catogories.toLowerCase() ? 1 : -1
+      a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
     );
+    getDataFromLocal();
+  } else if (value == "all") {
     getDataFromLocal();
   }
   console.log(userData);
