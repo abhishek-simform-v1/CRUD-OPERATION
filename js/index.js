@@ -33,7 +33,11 @@ const openAddWindow = () => {
         .substring(2, length + 2);
       return rand;
     };
-
+    for (i = 0; i < allInput.length; i++) {
+      allInput[i].value = "";
+      profilePic.src =
+        "https://img.freepik.com/free-icon/avatar_318-158392.jpg";
+    }
     id.innerHTML = randomId(9);
   }
 };
@@ -44,17 +48,21 @@ const closeAddWindow = () => {
     let i;
     for (i = 0; i < allInput.length; i++) {
       allInput[i].value = "";
-      profilePic.src = "./../img/avatar.jpeg";
+      profilePic.src =
+        "https://img.freepik.com/free-icon/avatar_318-158392.jpg";
     }
     console.log(modal.classList);
   }
 };
+
 // start register codding
 registerBtn.onclick = function (e) {
   e.preventDefault();
   registrationData();
   getDataFromLocal();
   registerForm.reset();
+  imgUrl = "";
+  uploadPic = "";
   closeAddWindow();
 };
 const registrationData = () => {
@@ -65,7 +73,10 @@ const registrationData = () => {
     email: email.value,
     price: price.value,
     catogories: catogories.value,
-    profilePic: imgUrl === undefined ? "./../img/avatar.jpeg" : imgUrl,
+    profilePic:
+      imgUrl === undefined
+        ? "https://img.freepik.com/free-icon/avatar_318-158392.jpg"
+        : imgUrl,
   });
 
   let userString = JSON.stringify(userData);
@@ -188,6 +199,7 @@ uploadPic.onchange = () => {
       imgUrl = e.target.result;
       profilePic.src = imgUrl;
       console.log(imgUrl);
+      console.log(uploadPic.files[0].name);
     };
     fReader.readAsDataURL(uploadPic.files[0]);
   } else {
@@ -302,8 +314,6 @@ productFilter.onchange = function () {
     getDataFromLocal();
   }
   console.log(userData);
-
-  getDataFromLocal();
 };
 // /////Form Validation
 function validateForm() {
