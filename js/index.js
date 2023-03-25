@@ -44,18 +44,25 @@ const closeAddWindow = () => {
     let i;
     for (i = 0; i < allInput.length; i++) {
       allInput[i].value = "";
-      profilePic.src = "./../img/avatar.jpeg";
     }
     console.log(modal.classList);
   }
 };
 // start register codding
 registerBtn.onclick = function (e) {
-  e.preventDefault();
-  registrationData();
-  getDataFromLocal();
-  registerForm.reset();
-  closeAddWindow();
+  if (validateForm()) {
+
+    e.preventDefault();
+    registrationData();
+    getDataFromLocal();
+    profilePic.src = "./../img/avatar.png";
+    registerForm.reset();
+    closeAddWindow();
+  }
+  else {
+    e.preventDefault();
+
+  }
 };
 const registrationData = () => {
   userData.push({
@@ -65,11 +72,12 @@ const registrationData = () => {
     email: email.value,
     price: price.value,
     catogories: catogories.value,
-    profilePic: imgUrl === undefined ? "./../img/avatar.jpeg" : imgUrl,
+    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
   });
-
   let userString = JSON.stringify(userData);
   localStorage.setItem("userData", userString);
+  uploadPic.value = "";
+
   swal.fire("Good job!", "You clicked the button!", "success");
 };
 if (localStorage.getItem("userData") != null) {
@@ -169,6 +177,8 @@ const getDataFromLocal = () => {
         };
         localStorage.setItem("userData", JSON.stringify(userData));
         getDataFromLocal();
+        profilePic.src = "./../img/avatar.png";
+        location.reload();
         registerForm.reset();
         closeAddWindow();
       };
@@ -307,9 +317,13 @@ productFilter.onchange = function () {
 };
 // /////Form Validation
 function validateForm() {
-  let x = document.forms["myForm"]["fname"].value;
-  if (x == "") {
+  if (productName.value == "") {
     alert("Name must be filled out");
     return false;
+  } else if (price.value == "") {
+    alert("Name must be filled out");
+    return false;
+  } else {
+    return true;
   }
 }
