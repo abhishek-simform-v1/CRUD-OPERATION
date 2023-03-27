@@ -187,22 +187,25 @@ const getDataFromLocal = () => {
       catogories.value = catogoriesEl;
       profilePic.src = profilePicEl;
       updateBtn.onclick = function (e) {
+        if (validateForm()) {
+          e.preventDefault();
+          userData[index] = {
+            id: id.innerHTML,
+            productName: productName.value,
+            description: description.value,
+            email: email.value,
+            price: price.value,
+            catogories: catogories.value,
+            profilePic: uploadPic.value === "" ? profilePic.src : imgUrl,
+          };
+          localStorage.setItem("userData", JSON.stringify(userData));
+          getDataFromLocal();
+          profilePic.src = "./../img/avatar.png";
+          location.reload();
+          registerForm.reset();
+          closeAddWindow();
+        }
         e.preventDefault();
-        userData[index] = {
-          id: id.innerHTML,
-          productName: productName.value,
-          description: description.value,
-          email: email.value,
-          price: price.value,
-          catogories: catogories.value,
-          profilePic: uploadPic.value === "" ? profilePic.src : imgUrl,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        getDataFromLocal();
-        profilePic.src = "./../img/avatar.png";
-        location.reload();
-        registerForm.reset();
-        closeAddWindow();
       };
     };
   }
@@ -213,20 +216,48 @@ getDataFromLocal();
 
 let profilePic = document.querySelector("#profilePic");
 let uploadPic = document.querySelector("#uploadField");
-uploadPic.onchange = () => {
-  if (uploadPic.files[0].size < 1000000) {
-    let fReader = new FileReader();
-    fReader.onload = function (e) {
-      imgUrl = e.target.result;
-      profilePic.src = imgUrl;
-      console.log(imgUrl);
-      console.log(uploadPic.files[0].name);
-    };
-    fReader.readAsDataURL(uploadPic.files[0]);
+
+uploadPic.addEventListener("change", function (e) {
+  let imgFile = e.target.files[0];
+  if (e.target.files[0].size <= 200000) {
+    if (
+      imgFile.type == "image/png" ||
+      imgFile.type == "image/jpeg" ||
+      imgFile.type == "image/jpg" ||
+      imgFile.type == "image/gif"
+    ) {
+      let fReader = new FileReader();
+      fReader.onload = function (e) {
+        imgUrl = e.target.result;
+        profilePic.src = imgUrl;
+        console.log(imgUrl);
+        console.log(uploadPic.files[0].name);
+      };
+      fReader.readAsDataURL(uploadPic.files[0]);
+    } else {
+      alert("File type is not image");
+    }
   } else {
     alert("File Size is too Long");
+
+    alert("File type is not image");
   }
-};
+});
+
+// uploadPic.onchange = () => {
+//   if (uploadPic.files[0].size < 1000000) {
+//     let fReader = new FileReader();
+//     fReader.onload = function (e) {
+//       imgUrl = e.target.result;
+//       profilePic.src = imgUrl;
+//       console.log(imgUrl);
+//       console.log(uploadPic.files[0].name);
+//     };
+//     fReader.readAsDataURL(uploadPic.files[0]);
+//   } else {
+//     alert("File Size is too Long");
+//   }
+// };
 // start search codding
 let searchEl = document.querySelector("#ProdId");
 searchEl.oninput = function () {
@@ -405,6 +436,7 @@ let sortBy = "asc";
 // /////Form Validation
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
   if (productName.value == "") {
     alert("Name must be filled out");
     return false;
