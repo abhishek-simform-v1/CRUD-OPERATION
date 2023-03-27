@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Employe</title>
+  <title>Crud</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,7 +16,7 @@
 
 <body>
   <header class="header">
-    <h5>Employee</h5>
+    <h5>shopy</h5>
   </header>
   <main>
     <section class="upper-btn-box">
@@ -33,23 +33,21 @@
         </div>
 
         <select id="productFilter">
-          <option value="all">ALL</option>
+          <option id="allSort" value="all">ALL</option>
           <option value="id">Product Id</option>
           <option value="productName">Product Name</option>
+          <option value="description">description</option>
           <option value="price">Price</option>
           <option value="Catogories">Catogories</option>
-          <option value="sellerName">Seller name</option>
           <option value="email">E-mail</option>
         </select>
+        <button id="asc" class="asc"></button>
       </div>
     </section>
     <section class="modal hide">
-      <i class="fa fa-times-circle close-icon" onclick="closeAddWindow()"></i>
       <section class="left-modal">
         <div class="img-box">
-          <img src="https://img.freepik.com/free-icon/avatar_318-158392.jpg" id="profilePic" alt="avatar image"
-            width="150" height="150" />
-          <i class="fa fa-plus"></i>
+          <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150" />
           <input type="file" id="uploadField" required />
         </div>
       </section>
@@ -60,22 +58,22 @@
             <div id="id"></div>
           </div>
           <div class="input-box">
-            <label for="firstName" name="productName">Product Name</label>
+            <label for="productName" name="productName">Product Name</label>
             <input type="text" id="productName" required></input>
           </div>
-
+          <div class="input-box">
+            <label for="description" name="description">Description</label>
+            <input type="text" id="description" required></input>
+          </div>
           <div class="input-box">
             <label for="price">Price</label>
-            <input type="text" id="price" required></input>
+            <input type="number" id="price" required></input>
           </div>
           <div class="input-box">
             <label for="catogories">Catogories</label>
             <input type="text" id="catogories" required></input>
           </div>
-          <div class="input-box">
-            <label for="sellerName" name="sellerName">Seller Name</label>
-            <input type="text" id="sellerName" required></input>
-          </div>
+
           <div class="input-box">
             <label for="email">Seller E-mail</label>
             <input type="text" id="email" required></input>
@@ -95,9 +93,9 @@
           <th>Product Image</th>
           <th>Product Id</th>
           <th>Product Name</th>
+          <th>Description</th>
           <th>Price</th>
           <th>Catogories</th>
-          <th>Seller Name</th>
           <th>Seller E-mail</th>
           <th>Action</th>
         </tr>

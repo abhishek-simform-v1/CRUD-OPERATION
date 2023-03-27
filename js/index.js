@@ -10,7 +10,7 @@ let allInput = registerForm.querySelectorAll("INPUT");
 let userData = [];
 let id = document.getElementById("id");
 let productName = document.getElementById("productName");
-let sellerName = document.getElementById("sellerName");
+let description = document.getElementById("description");
 let email = document.getElementById("email");
 let price = document.getElementById("price");
 let catogories = document.getElementById("catogories");
@@ -25,8 +25,32 @@ const openAddWindow = () => {
   console.log(modal.classList.contains("hide"));
   if (modal.classList.contains("hide")) {
     modal.classList.remove("hide");
-    registerBtn.disabled = false;
-    updateBtn.disabled = true;
+  }
+  registerBtn.disabled = false;
+  updateBtn.disabled = true;
+  const randomId = function (length = 6) {
+    let rand = Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+    return rand;
+  };
+
+  id.innerHTML = randomId(9);
+};
+const closeAddWindow = () => {
+  console.log(modal.classList.contains("hide"));
+  if (!modal.classList.contains("hide")) {
+    modal.classList.add("hide");
+  }
+  let i;
+  for (i = 0; i < allInput.length; i++) {
+    allInput[i].value = "";
+  }
+  console.log(modal.classList);
+};
+// start register codding
+registerBtn.onclick = function (e) {
+  if (validateForm()) {
     const randomId = function (length = 6) {
       let rand = Math.random()
         .toString(36)
@@ -39,8 +63,20 @@ const openAddWindow = () => {
         "https://img.freepik.com/free-icon/avatar_318-158392.jpg";
     }
     id.innerHTML = randomId(9);
+    e.preventDefault();
+    registrationData();
+    getDataFromLocal();
+    profilePic.src = "./../img/avatar.png";
+    registerForm.reset();
+    closeAddWindow();
+    setTimeout(() => {
+      id.innerHTML = "";
+    }, 1000);
+  } else {
+    e.preventDefault();
   }
 };
+<<<<<<< HEAD
 const closeAddWindow = () => {
   console.log(modal.classList.contains("hide"));
   if (!modal.classList.contains("hide")) {
@@ -65,22 +101,29 @@ registerBtn.onclick = function (e) {
   uploadPic = "";
   closeAddWindow();
 };
+=======
+>>>>>>> predev
 const registrationData = () => {
   userData.push({
     id: id.innerHTML,
     productName: productName.value,
-    sellerName: sellerName.value,
+    description: description.value,
     email: email.value,
     price: price.value,
     catogories: catogories.value,
+<<<<<<< HEAD
     profilePic:
       imgUrl === undefined
         ? "https://img.freepik.com/free-icon/avatar_318-158392.jpg"
         : imgUrl,
+=======
+    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
+>>>>>>> predev
   });
-
   let userString = JSON.stringify(userData);
   localStorage.setItem("userData", userString);
+  uploadPic.value = "";
+
   swal.fire("Good job!", "You clicked the button!", "success");
 };
 if (localStorage.getItem("userData") != null) {
@@ -93,21 +136,23 @@ const getDataFromLocal = () => {
   tableData.innerHTML = "";
   userData.forEach((data, index) => {
     tableData.innerHTML += `
-    <tr index="${index}" >
-    <td>${index + 1}</td>
+    <tr class="row" index="${index}" >
+   <td>${index + 1}</td>
     <td><img src="${data.profilePic}" width="40" height="40"></td>
     <td>${data.id}</td>
-    <td>${data.productName}</td>
+     <td>${data.productName}</td>
+    <td class="desc">${data.description}</td>
     <td>${data.price}</td>
     <td>${data.catogories}</td>
-    <td>${data.sellerName}</td>
     <td>${data.email}</td>
     <td>
     <button class="eye-btn"><i class="fa fa-pencil"></i></button>
-    <button class="eye-btn"><i class="fa fa-eye"></i>
-    <a href="./view.html?id=${data.id}" class="card-link">View</a>
+  
     
-    </button>
+    <a href="./view.html?id=${
+      data.id
+    }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
+ 
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
@@ -144,6 +189,8 @@ const getDataFromLocal = () => {
   var allEdit = document.querySelectorAll(".eye-btn");
   for (i = 0; i < allEdit.length; i++) {
     allEdit[i].onclick = function () {
+      console.log("hello");
+
       let tr = this.parentElement.parentElement;
       console.log(this.parentElement.parentElement);
 
@@ -153,7 +200,7 @@ const getDataFromLocal = () => {
       let profilePicEl = imgTag[0].src;
       let idEl = td[2].innerHTML;
       let productNameEl = td[3].innerHTML;
-      let sellerNameEl = td[4].innerHTML;
+      let descriptionEl = td[4].innerHTML;
       let emailEl = td[5].innerHTML;
       let priceEl = td[6].innerHTML;
       let catogoriesEl = td[7].innerHTML;
@@ -162,7 +209,7 @@ const getDataFromLocal = () => {
       updateBtn.disabled = false;
       id.innerHTML = idEl;
       productName.value = productNameEl;
-      sellerName.value = sellerNameEl;
+      description.value = descriptionEl;
       email.value = emailEl;
       price.value = priceEl;
       catogories.value = catogoriesEl;
@@ -172,7 +219,7 @@ const getDataFromLocal = () => {
         userData[index] = {
           id: id.innerHTML,
           productName: productName.value,
-          sellerName: sellerName.value,
+          description: description.value,
           email: email.value,
           price: price.value,
           catogories: catogories.value,
@@ -180,6 +227,8 @@ const getDataFromLocal = () => {
         };
         localStorage.setItem("userData", JSON.stringify(userData));
         getDataFromLocal();
+        profilePic.src = "./../img/avatar.png";
+        location.reload();
         registerForm.reset();
         closeAddWindow();
       };
@@ -279,7 +328,9 @@ delAllBtn.addEventListener("click", () => {
   }
 });
 // data sorting by dropdown
+let ascBtn = document.querySelector("#asc");
 let productFilter = document.querySelector("#productFilter");
+<<<<<<< HEAD
 productFilter.onchange = function () {
   let value = this.value;
   if (value == "id") {
@@ -314,12 +365,127 @@ productFilter.onchange = function () {
     getDataFromLocal();
   }
   console.log(userData);
+=======
+ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
+
+ascBtn.onclick = function () {
+  if (ascBtn.classList.contains("asc")) {
+    productFilter.onclick = function () {
+      console.log("changing");
+      let value = this.value;
+      if (value == "id") {
+        userData.sort((a, b) =>
+          a.id.toLowerCase() > b.id.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "productName") {
+        userData.sort((a, b) =>
+          a.productName.toLowerCase() > b.productName.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "description") {
+        userData.sort((a, b) =>
+          a.description.toLowerCase() > b.description.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "email") {
+        userData.sort((a, b) =>
+          a.email.toLowerCase() > b.email.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "price") {
+        userData.sort((a, b) =>
+          a.price.toLowerCase() > b.price.toLowerCase() ? -1 : 1
+        );
+        console.log("pricedeccending");
+
+        getDataFromLocal();
+      } else if (value == "catogories") {
+        userData.sort((a, b) =>
+          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "all") {
+        getDataFromLocal();
+      }
+      console.log(userData);
+      getDataFromLocal();
+      console.log("hi");
+    };
+    console.log("hello");
+    ascBtn.classList.remove("asc");
+    ascBtn.classList.add("dsc");
+    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in Accending Order`;
+  } else {
+    productFilter.onclick = function () {
+      console.log("changing");
+      let value = this.value;
+      if (value == "id") {
+        userData.sort((a, b) =>
+          a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "productName") {
+        userData.sort((a, b) =>
+          a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "description") {
+        userData.sort((a, b) =>
+          a.description.toLowerCase() > b.description.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "email") {
+        userData.sort((a, b) =>
+          a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "price") {
+        userData.sort((a, b) =>
+          a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
+        );
+        console.log("priceaccending");
+        getDataFromLocal();
+      } else if (value == "catogories") {
+        userData.sort((a, b) =>
+          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "all") {
+        getDataFromLocal();
+      }
+      console.log(userData);
+      getDataFromLocal();
+      console.log("hi");
+    };
+    console.log("hi");
+    ascBtn.classList.add("asc");
+    ascBtn.classList.remove("dsc");
+    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
+  }
+>>>>>>> predev
 };
+let sortBy = "asc";
+
 // /////Form Validation
 function validateForm() {
-  let x = document.forms["myForm"]["fname"].value;
-  if (x == "") {
+  let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (productName.value == "") {
     alert("Name must be filled out");
     return false;
+  } else if (description.value == "") {
+    alert("description must be filled out");
+    return false;
+  } else if (price.value == "") {
+    alert("price must be filled out");
+    return false;
+  } else if (catogories.value == "") {
+    alert("catogories must be filled out");
+    return false;
+  } else if (!email.value.match(mailformat)) {
+    alert("email must be filled out and valid");
+    return false;
+  } else {
+    return true;
   }
 }

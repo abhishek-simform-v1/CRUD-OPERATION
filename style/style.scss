@@ -19,9 +19,32 @@
   }
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width: 800px) {
   .upper-btn-box {
     flex-direction: column;
+  }
+  main .upper-btn-box .btn-left-box {
+    
+    flex-direction: column;
+    button {
+   
+    width: 100%;
+}}
+  .modal {
+    flex-direction: column;
+    .right-modal{
+      width: 100% !important;
+      height: 100%;
+       .input-box {
+        flex-direction: column;
+        input {
+        width: 100% !important; 
+    }}
+    }
+    .left-modal{
+      width: 100% !important;
+    }
+   
   }
 }
 main {
@@ -47,7 +70,7 @@ main {
         padding: 13px;
         font-size: 16px;
         margin: 0px;
-
+transition: all 0.3s;
         &:nth-child(2) {
           background-color: #e96161;
         }
@@ -56,8 +79,21 @@ main {
           background-color: #ff0000;
         }
       }
+      button:hover {
+    
+        background-color: #00a537;
+     
 
-      input[type="checkbox"] {
+        &:nth-child(2) {
+          background-color: #ff8282;
+        }
+
+        &:nth-child(3) {
+          background-color: #ff4c4c;
+        }
+      }
+
+      input[type='checkbox'] {
         width: 35px;
         height: 35px;
         cursor: pointer;
@@ -68,19 +104,19 @@ main {
       width: 100%;
       height: 100%;
       padding: 10px;
-display: flex;
-flex-direction: column;
-gap: 1em;
-.search-Field{
-  position: relative;
-  .search-icon{
-    position: absolute;
-    font-size: 30px;
-    color: #2889ad;
-    top: 13px;
-    right: 0px;
-  }
-}
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      .search-Field {
+        position: relative;
+        .search-icon {
+          position: absolute;
+          font-size: 30px;
+          color: #2889ad;
+          top: 13px;
+          right: 0px;
+        }
+      }
       input {
         padding: 13px;
         border: none;
@@ -99,15 +135,19 @@ gap: 1em;
         color: #fff;
         padding: 13px;
         font-size: 16px;
+        cursor: pointer;
         margin: 0px;
       }
-      select{
+      button:hover {
+        background-color: #00a537 !important
+      }
+      select {
         border: none;
         outline: none;
         padding: 10px;
         border-radius: 0.4rem;
-        option{
-        padding: 10px;
+        option {
+          padding: 10px;
         }
       }
     }
@@ -116,22 +156,24 @@ gap: 1em;
   .table-box {
     width: 100%;
     padding: 30px;
-overflow: auto;
+    overflow: auto;
     table {
-      width: 100%;
+      width: 1600px;
+      margin: 0 auto;
 
       tr {
+        background-color: #f5f5f5;
+        border-radius: 5px;
         th {
-          border-right: 1px solid #ccc;
-          border-bottom: 1px solid #ccc;
           font-family: 20px;
-          padding: 30px 0px 0px;
+          background-color: #f2f2f2;
+          padding: 20px 0px;
+          border-radius: 0.6em;
+          max-height: fit-content;
         }
-
+     
         td {
-          border-right: 1px solid #ccc;
-          padding: 10px 0px 0px;
-          border-bottom: 1px solid #ccc;
+          padding: 10px 0px;
           text-align: center;
 
           button {
@@ -143,11 +185,23 @@ overflow: auto;
             padding: 13px;
             font-size: 16px;
             margin: 0px;
-
+transition: all 0.3s;
             &:last-child {
               background-color: rgb(233, 97, 97);
             }
+            
           }
+          button:hover {
+    
+            background-color: #00a537;
+         
+            &:last-child {
+              background-color: rgb(255, 143, 143);
+            }
+            
+          }
+    
+          
         }
       }
     }
@@ -158,19 +212,13 @@ overflow: auto;
   }
 
   .modal {
-    width: 60%;
     padding: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    height: auto;
-    background-color: #f2f2f2;
-    display: flex;
-    transform: translate(-50%, -50%);
-    border-top: 20px groove #2889ad;
 
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
     .close-icon {
-      position: absolute;
+      // position: absolute;
       right: -19px;
       top: -40px;
       font-size: 40px;
@@ -183,7 +231,6 @@ overflow: auto;
     .left-modal {
       width: 30%;
       height: 100%;
-      background-color: #fff;
 
       .img-box {
         width: 100%;
@@ -193,6 +240,7 @@ overflow: auto;
 
         img {
           border-radius: 20px;
+          position: relative;
         }
 
         i {
@@ -208,24 +256,39 @@ overflow: auto;
         }
 
         input {
-          width: 50px;
-          height: 50px;
+          width: 100%;
+          height: 100%;
           padding: 50px;
           opacity: 0;
           position: absolute;
-          right: 0%;
-          transform: translate(-50%, 50%);
-          top: 0%;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
           cursor: pointer;
         }
-
+        #profilePic {
+          position: absolute;
+          opacity: 1;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          cursor: pointer;
+        }
+      }
+      .img-box:hover {
+        background-color: #2889ad60;
+      }.img-box::after{
+        content: 'add Image or Update Image';
+        position: absolute;
+        top: 88%;
+        right: 50%;
+        transform: translate(50%, -50%);
       }
     }
 
     .right-modal {
       width: 70%;
       height: 100%;
-      border-left: 5px groove #2889ad;
       padding: 10px;
 
       .input-box {
@@ -258,6 +321,11 @@ overflow: auto;
         color: #fff;
         padding: 13px;
         font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      button:hover {
+        background-color: #00a537 !important
       }
     }
   }
