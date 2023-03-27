@@ -48,7 +48,7 @@
       <section class="left-modal">
         <div class="img-box">
           <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150" />
-          <input type="file" id="uploadField" required />
+          <input type="file" id="uploadField" required accept="image/png, image/gif, image/jpeg" />
         </div>
       </section>
       <section class="right-modal">
@@ -76,7 +76,7 @@
 
           <div class="input-box">
             <label for="email">Seller E-mail</label>
-            <input type="text" id="email" required></input>
+            <input type="email" id="email" required></input>
           </div>
           <div>
             <button id="register-btn">Register</button>
@@ -111,6 +111,7 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
   <script src="./js/index.js"></script>
+  <script src="./js/sorting.js"></script>
 </body>
 
 </html>
