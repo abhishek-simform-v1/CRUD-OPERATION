@@ -23,7 +23,9 @@ let imgUrl;
 // toggle modal
 const openAddWindow = () => {
   console.log(modal.classList.contains("hide"));
-
+  if (modal.classList.contains("hide")) {
+    modal.classList.remove("hide");
+  }
   registerBtn.disabled = false;
   updateBtn.disabled = true;
   const randomId = function (length = 6) {
@@ -37,7 +39,9 @@ const openAddWindow = () => {
 };
 const closeAddWindow = () => {
   console.log(modal.classList.contains("hide"));
-
+  if (!modal.classList.contains("hide")) {
+    modal.classList.add("hide");
+  }
   let i;
   for (i = 0; i < allInput.length; i++) {
     allInput[i].value = "";
@@ -285,44 +289,108 @@ delAllBtn.addEventListener("click", () => {
   }
 });
 // data sorting by dropdown
+let ascBtn = document.querySelector("#asc");
 let productFilter = document.querySelector("#productFilter");
-productFilter.onchange = function () {
-  let value = this.value;
-  if (value == "id") {
-    userData.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
-    getDataFromLocal();
-  } else if (value == "productName") {
-    userData.sort((a, b) =>
-      a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "description") {
-    userData.sort((a, b) =>
-      a.description.toLowerCase() > b.description.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "email") {
-    userData.sort((a, b) =>
-      a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "price") {
-    userData.sort((a, b) =>
-      a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "catogories") {
-    userData.sort((a, b) =>
-      a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "all") {
-    getDataFromLocal();
-  }
-  console.log(userData);
+ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
 
-  getDataFromLocal();
+ascBtn.onclick = function () {
+  if (ascBtn.classList.contains("asc")) {
+    productFilter.onclick = function () {
+      console.log("changing");
+      let value = this.value;
+      if (value == "id") {
+        userData.sort((a, b) =>
+          a.id.toLowerCase() > b.id.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "productName") {
+        userData.sort((a, b) =>
+          a.productName.toLowerCase() > b.productName.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "description") {
+        userData.sort((a, b) =>
+          a.description.toLowerCase() > b.description.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "email") {
+        userData.sort((a, b) =>
+          a.email.toLowerCase() > b.email.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "price") {
+        userData.sort((a, b) =>
+          a.price.toLowerCase() > b.price.toLowerCase() ? -1 : 1
+        );
+        console.log("pricedeccending");
+
+        getDataFromLocal();
+      } else if (value == "catogories") {
+        userData.sort((a, b) =>
+          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? -1 : 1
+        );
+        getDataFromLocal();
+      } else if (value == "all") {
+        getDataFromLocal();
+      }
+      console.log(userData);
+      getDataFromLocal();
+      console.log("hi");
+    };
+    console.log("hello");
+    ascBtn.classList.remove("asc");
+    ascBtn.classList.add("dsc");
+    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in Accending Order`;
+  } else {
+    productFilter.onclick = function () {
+      console.log("changing");
+      let value = this.value;
+      if (value == "id") {
+        userData.sort((a, b) =>
+          a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "productName") {
+        userData.sort((a, b) =>
+          a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "description") {
+        userData.sort((a, b) =>
+          a.description.toLowerCase() > b.description.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "email") {
+        userData.sort((a, b) =>
+          a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "price") {
+        userData.sort((a, b) =>
+          a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
+        );
+        console.log("priceaccending");
+        getDataFromLocal();
+      } else if (value == "catogories") {
+        userData.sort((a, b) =>
+          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
+        );
+        getDataFromLocal();
+      } else if (value == "all") {
+        getDataFromLocal();
+      }
+      console.log(userData);
+      getDataFromLocal();
+      console.log("hi");
+    };
+    console.log("hi");
+    ascBtn.classList.add("asc");
+    ascBtn.classList.remove("dsc");
+    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
+  }
 };
+let sortBy = "asc";
+
 // /////Form Validation
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

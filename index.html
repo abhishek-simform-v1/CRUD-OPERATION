@@ -33,7 +33,7 @@
         </div>
 
         <select id="productFilter">
-          <option value="all">ALL</option>
+          <option id="allSort" value="all">ALL</option>
           <option value="id">Product Id</option>
           <option value="productName">Product Name</option>
           <option value="description">description</option>
@@ -41,9 +41,10 @@
           <option value="Catogories">Catogories</option>
           <option value="email">E-mail</option>
         </select>
+        <button id="asc" class="asc"></button>
       </div>
     </section>
-    <section class="modal">
+    <section class="modal hide">
       <section class="left-modal">
         <div class="img-box">
           <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150" />
