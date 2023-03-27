@@ -33,13 +33,13 @@
         </div>
 
         <select id="productFilter">
-          <option id="allSort" value="all">ALL</option>
-          <option value="id">Product Id</option>
-          <option value="productName">Product Name</option>
-          <option value="description">description</option>
-          <option value="price">Price</option>
-          <option value="Catogories">Catogories</option>
-          <option value="email">E-mail</option>
+          <option id="allSort" value="all">Sort By ALL</option>
+          <option value="id">Sort By Product Id</option>
+          <option value="productName">Sort By Product Name</option>
+          <option value="description">Sort By description</option>
+          <option value="price">Sort By Price</option>
+          <option value="Catogories">Sort By Catogories</option>
+          <option value="email">Sort By E-mail</option>
         </select>
         <button id="asc" class="asc"></button>
       </div>
@@ -47,7 +47,8 @@
     <section class="modal hide">
       <section class="left-modal">
         <div class="img-box">
-          <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150" />
+          <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150"
+            accept="image/x-png,image/gif,image/jpeg" />
           <input type="file" id="uploadField" required />
         </div>
       </section>
@@ -101,9 +102,11 @@
         </tr>
         <tbody id="tableData">
 
+
         </tbody>
 
       </table>
+      <div id="dataimg"></div>
     </section>
 
   </main>
