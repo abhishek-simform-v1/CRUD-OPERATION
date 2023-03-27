@@ -1,22 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+
 #container {
-  height: 100vh;
+  max-width: 1000px;
   margin: 0 auto;
   background-color: #f2f2f2;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 2em;
   gap: 1em;
   font-family: 'Poppins';
   .go-back {
     background-color: #2889ad;
-    max-width: 100px;
     text-decoration: none;
     border-radius: 5px;
     display: flex;
     place-content: center;
     color: #f2f2f2;
     padding: 1em;
+    transition: all 0.3s;
+  }.go-back:hover {
+    background-color: #2c9ec7;
   }
   .product-id-name {
     .card-header {

@@ -8,7 +8,7 @@ products.forEach((element) => {
     <div class="product-id-name">
      
     <h1 class="card-header"> Product ID:- ${element.id} </h1>
-<h3 class="card-title">${element.productName}</h3> 
+<h3 class="card-title"> Product Name ID:-  ${element.productName}</h3> 
     
     </div>
    

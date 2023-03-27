@@ -10,7 +10,7 @@ let allInput = registerForm.querySelectorAll("INPUT");
 let userData = [];
 let id = document.getElementById("id");
 let productName = document.getElementById("productName");
-let sellerName = document.getElementById("sellerName");
+let description = document.getElementById("description");
 let email = document.getElementById("email");
 let price = document.getElementById("price");
 let catogories = document.getElementById("catogories");
@@ -34,7 +34,6 @@ const openAddWindow = () => {
   };
 
   id.innerHTML = randomId(9);
-
 };
 const closeAddWindow = () => {
   console.log(modal.classList.contains("hide"));
@@ -44,7 +43,6 @@ const closeAddWindow = () => {
     allInput[i].value = "";
   }
   console.log(modal.classList);
-
 };
 // start register codding
 registerBtn.onclick = function (e) {
@@ -66,17 +64,15 @@ registerBtn.onclick = function (e) {
     setTimeout(() => {
       id.innerHTML = "";
     }, 1000);
-  }
-  else {
+  } else {
     e.preventDefault();
-
   }
 };
 const registrationData = () => {
   userData.push({
     id: id.innerHTML,
     productName: productName.value,
-    sellerName: sellerName.value,
+    description: description.value,
     email: email.value,
     price: price.value,
     catogories: catogories.value,
@@ -103,7 +99,7 @@ const getDataFromLocal = () => {
     <td><img src="${data.profilePic}" width="40" height="40"></td>
     <td>${data.id}</td>
      <td>${data.productName}</td>
-    <td class="desc">${data.sellerName}</td>
+    <td class="desc">${data.description}</td>
     <td>${data.price}</td>
     <td>${data.catogories}</td>
     <td>${data.email}</td>
@@ -111,7 +107,9 @@ const getDataFromLocal = () => {
     <button class="eye-btn"><i class="fa fa-pencil"></i></button>
   
     
-    <a href="./view.html?id=${data.id}" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
+    <a href="./view.html?id=${
+      data.id
+    }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
  
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
@@ -160,7 +158,7 @@ const getDataFromLocal = () => {
       let profilePicEl = imgTag[0].src;
       let idEl = td[2].innerHTML;
       let productNameEl = td[3].innerHTML;
-      let sellerNameEl = td[4].innerHTML;
+      let descriptionEl = td[4].innerHTML;
       let emailEl = td[5].innerHTML;
       let priceEl = td[6].innerHTML;
       let catogoriesEl = td[7].innerHTML;
@@ -169,7 +167,7 @@ const getDataFromLocal = () => {
       updateBtn.disabled = false;
       id.innerHTML = idEl;
       productName.value = productNameEl;
-      sellerName.value = sellerNameEl;
+      description.value = descriptionEl;
       email.value = emailEl;
       price.value = priceEl;
       catogories.value = catogoriesEl;
@@ -179,7 +177,7 @@ const getDataFromLocal = () => {
         userData[index] = {
           id: id.innerHTML,
           productName: productName.value,
-          sellerName: sellerName.value,
+          description: description.value,
           email: email.value,
           price: price.value,
           catogories: catogories.value,
@@ -298,9 +296,9 @@ productFilter.onchange = function () {
       a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
     );
     getDataFromLocal();
-  } else if (value == "sellerName") {
+  } else if (value == "description") {
     userData.sort((a, b) =>
-      a.sellerName.toLowerCase() > b.sellerName.toLowerCase() ? 1 : -1
+      a.description.toLowerCase() > b.description.toLowerCase() ? 1 : -1
     );
     getDataFromLocal();
   } else if (value == "email") {
@@ -327,14 +325,23 @@ productFilter.onchange = function () {
 };
 // /////Form Validation
 function validateForm() {
+  let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (productName.value == "") {
     alert("Name must be filled out");
     return false;
+  } else if (description.value == "") {
+    alert("description must be filled out");
+    return false;
   } else if (price.value == "") {
-    alert("Name must be filled out");
+    alert("price must be filled out");
+    return false;
+  } else if (catogories.value == "") {
+    alert("catogories must be filled out");
+    return false;
+  } else if (!email.value.match(mailformat)) {
+    alert("email must be filled out and valid");
     return false;
   } else {
     return true;
   }
 }
-
