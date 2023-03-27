@@ -258,7 +258,8 @@ main .modal .left-modal .img-box #profilePic {
   cursor: pointer;
 }
 main .modal .left-modal .img-box:hover {
-  background-color: rgba(40, 137, 173, 0.3764705882);
+  background-color: rgba(40, 137, 173, 0.1098039216);
+  border: dotted 5px #2889ad;
 }
 main .modal .left-modal .img-box::after {
   content: "add Image or Update Image";

@@ -287,7 +287,8 @@ transition: all 0.3s;
         }
       }
       .img-box:hover {
-        background-color: #2889ad60;
+        background-color: #2889ad1c;
+        border:  dotted 5px #2889ad;
       }.img-box::after{
         content: 'add Image or Update Image';
         position: absolute;

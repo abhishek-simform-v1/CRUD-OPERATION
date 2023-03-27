@@ -74,6 +74,7 @@ registerBtn.onclick = function (e) {
     e.preventDefault();
   }
 };
+let stArr = [];
 const registrationData = () => {
   userData.push({
     id: id.innerHTML,
@@ -84,6 +85,7 @@ const registrationData = () => {
     catogories: catogories.value,
     profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
   });
+
   let userString = JSON.stringify(userData);
   localStorage.setItem("userData", userString);
   uploadPic.value = "";
@@ -96,7 +98,6 @@ if (localStorage.getItem("userData") != null) {
 }
 // start returning data on pag from localstorage
 let dataimg = document.querySelector("#dataimg");
-
 let tableData = document.querySelector("#tableData");
 const getDataFromLocal = () => {
   if (userData.length == 0) {
@@ -107,7 +108,7 @@ const getDataFromLocal = () => {
     userData.forEach((data, index) => {
       tableData.innerHTML += `
     <tr class="row" index="${index}" >
-   <td>${index + 1}</td>
+   <td class="srNo">${index + 1}</td>
     <td><img src="${data.profilePic}" width="40" height="40"></td>
     <td>${data.id}</td>
      <td>${data.productName}</td>
@@ -173,9 +174,9 @@ const getDataFromLocal = () => {
       let idEl = td[2].innerHTML;
       let productNameEl = td[3].innerHTML;
       let descriptionEl = td[4].innerHTML;
-      let emailEl = td[5].innerHTML;
-      let priceEl = td[6].innerHTML;
-      let catogoriesEl = td[7].innerHTML;
+      let priceEl = td[5].innerHTML;
+      let catogoriesEl = td[6].innerHTML;
+      let emailEl = td[7].innerHTML;
       addToggle.click();
       registerBtn.disabled = true;
       updateBtn.disabled = false;
@@ -244,21 +245,6 @@ uploadPic.addEventListener("change", function (e) {
   }
 });
 
-// uploadPic.onchange = () => {
-//   if (uploadPic.files[0].size < 1000000) {
-//     let fReader = new FileReader();
-//     fReader.onload = function (e) {
-//       imgUrl = e.target.result;
-//       profilePic.src = imgUrl;
-//       console.log(imgUrl);
-//       console.log(uploadPic.files[0].name);
-//     };
-//     fReader.readAsDataURL(uploadPic.files[0]);
-//   } else {
-//     alert("File Size is too Long");
-//   }
-// };
-// start search codding
 let searchEl = document.querySelector("#ProdId");
 searchEl.oninput = function () {
   searchFuc();
@@ -335,16 +321,16 @@ delAllBtn.addEventListener("click", () => {
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  if (productName.value == "") {
+  if (productName.value == "" || productName.value == " ") {
     alert("Name must be filled out");
     return false;
-  } else if (description.value == "") {
+  } else if (description.value == "" || description.value == " ") {
     alert("description must be filled out");
     return false;
-  } else if (price.value == "") {
+  } else if (price.value == "" || price.value == " ") {
     alert("price must be filled out");
     return false;
-  } else if (catogories.value == "") {
+  } else if (catogories.value == "" || catogories.value == " ") {
     alert("catogories must be filled out");
     return false;
   } else if (!email.value.match(mailformat)) {
