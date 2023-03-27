@@ -48,6 +48,7 @@ const closeAddWindow = () => {
   }
   console.log(modal.classList);
 };
+
 // start register codding
 registerBtn.onclick = function (e) {
   if (validateForm()) {
@@ -57,11 +58,7 @@ registerBtn.onclick = function (e) {
         .substring(2, length + 2);
       return rand;
     };
-    for (i = 0; i < allInput.length; i++) {
-      allInput[i].value = "";
-      profilePic.src =
-        "https://img.freepik.com/free-icon/avatar_318-158392.jpg";
-    }
+
     id.innerHTML = randomId(9);
     e.preventDefault();
     registrationData();
@@ -76,33 +73,6 @@ registerBtn.onclick = function (e) {
     e.preventDefault();
   }
 };
-<<<<<<< HEAD
-const closeAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
-  if (!modal.classList.contains("hide")) {
-    modal.classList.add("hide");
-    let i;
-    for (i = 0; i < allInput.length; i++) {
-      allInput[i].value = "";
-      profilePic.src =
-        "https://img.freepik.com/free-icon/avatar_318-158392.jpg";
-    }
-    console.log(modal.classList);
-  }
-};
-
-// start register codding
-registerBtn.onclick = function (e) {
-  e.preventDefault();
-  registrationData();
-  getDataFromLocal();
-  registerForm.reset();
-  imgUrl = "";
-  uploadPic = "";
-  closeAddWindow();
-};
-=======
->>>>>>> predev
 const registrationData = () => {
   userData.push({
     id: id.innerHTML,
@@ -111,14 +81,7 @@ const registrationData = () => {
     email: email.value,
     price: price.value,
     catogories: catogories.value,
-<<<<<<< HEAD
-    profilePic:
-      imgUrl === undefined
-        ? "https://img.freepik.com/free-icon/avatar_318-158392.jpg"
-        : imgUrl,
-=======
     profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
->>>>>>> predev
   });
   let userString = JSON.stringify(userData);
   localStorage.setItem("userData", userString);
@@ -330,42 +293,6 @@ delAllBtn.addEventListener("click", () => {
 // data sorting by dropdown
 let ascBtn = document.querySelector("#asc");
 let productFilter = document.querySelector("#productFilter");
-<<<<<<< HEAD
-productFilter.onchange = function () {
-  let value = this.value;
-  if (value == "id") {
-    userData.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
-    getDataFromLocal();
-  } else if (value == "productName") {
-    userData.sort((a, b) =>
-      a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "sellerName") {
-    userData.sort((a, b) =>
-      a.sellerName.toLowerCase() > b.sellerName.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "email") {
-    userData.sort((a, b) =>
-      a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "price") {
-    userData.sort((a, b) =>
-      a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "catogories") {
-    userData.sort((a, b) =>
-      a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
-    );
-    getDataFromLocal();
-  } else if (value == "all") {
-    getDataFromLocal();
-  }
-  console.log(userData);
-=======
 ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
 
 ascBtn.onclick = function () {
@@ -463,7 +390,6 @@ ascBtn.onclick = function () {
     ascBtn.classList.remove("dsc");
     ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
   }
->>>>>>> predev
 };
 let sortBy = "asc";
 
