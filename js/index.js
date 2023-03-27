@@ -1,9 +1,6 @@
 const addToggle = document.querySelector(".addProduct");
 const modal = document.querySelector(".modal");
 const closeIcon = document.querySelector(".close-icon");
-console.log(addToggle);
-
-// addToggle.addEventListener("click", openAddWindow());
 // start all global codding
 let registerForm = document.getElementById("registerForm");
 let allInput = registerForm.querySelectorAll("INPUT");
@@ -22,7 +19,6 @@ let imgUrl;
 
 // toggle modal
 const openAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
   if (modal.classList.contains("hide")) {
     modal.classList.remove("hide");
   }
@@ -38,7 +34,6 @@ const openAddWindow = () => {
   id.innerHTML = randomId(9);
 };
 const closeAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
   if (!modal.classList.contains("hide")) {
     modal.classList.add("hide");
   }
@@ -46,13 +41,15 @@ const closeAddWindow = () => {
   for (i = 0; i < allInput.length; i++) {
     allInput[i].value = "";
   }
-  console.log(modal.classList);
 };
 
 // start register codding
 
+// Register button click event handler
 registerBtn.onclick = function (e) {
+  // Check if form is valid
   if (validateForm()) {
+    // Generate a random 9-character ID
     const randomId = function (length = 6) {
       let rand = Math.random()
         .toString(36)
@@ -60,43 +57,70 @@ registerBtn.onclick = function (e) {
       return rand;
     };
 
+    // Set the ID element's innerHTML to the generated ID
     id.innerHTML = randomId(9);
+
+    // Prevent the form from submitting
     e.preventDefault();
+
+    // Save registration data to local storage
     registrationData();
+
+    // Retrieve data from local storage and display it
     getDataFromLocal();
+
+    // Set the profile picture source to the default image
     profilePic.src = "./../img/avatar.png";
+
+    // Reset the registration form
     registerForm.reset();
+
+    // Close the registration window
     closeAddWindow();
+
+    // Clear the ID element after 1 second
     setTimeout(() => {
       id.innerHTML = "";
     }, 1000);
   } else {
+    // Prevent the form from submitting if it's not valid
     e.preventDefault();
   }
 };
-let stArr = [];
-const registrationData = () => {
-  userData.push({
-    id: id.innerHTML,
-    productName: productName.value,
-    description: description.value,
-    email: email.value,
-    price: price.value,
-    catogories: catogories.value,
-    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
+
+const registrationData = () => { // declaring a function named registrationData
+  userData.push({ // push an object into userData array
+    id: id.innerHTML, // add id from HTML element into the object
+    productName: productName.value, // add productName value into the object
+    description: description.value, // add description value into the object
+    email: email.value, // add email value into the object
+    price: price.value, // add price value into the object
+    catogories: catogories.value, // add categories value into the object
+    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl, // add profilePic value based on the imgUrl value
   });
 
-  let userString = JSON.stringify(userData);
-  localStorage.setItem("userData", userString);
-  uploadPic.value = "";
+  let userString = JSON.stringify(userData); // convert the userData array into a JSON string
+  localStorage.setItem("userData", userString); // save the JSON string in the local storage with the key "userData"
+  uploadPic.value = ""; // clear the value of uploadPic input field
 
-  swal.fire("Good job!", "You clicked the button!", "success");
+  swal.fire("Good job!", "You clicked the button!", "success"); // show a success message using SweetAlert library
 };
-if (localStorage.getItem("userData") != null) {
-  userData = JSON.parse(localStorage.getItem("userData"));
-  //   console.log(userData);
-}
-// start returning data on pag from localstorage
+
+if (localStorage.getItem("userData") != null) { // check if "userData" key is present in the local storage
+  userData = JSON.parse(localStorage.getItem("userData")); // parse the JSON string into userData array
+
+} // end of the if statement
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// start returning data on page from localstorage
 let dataimg = document.querySelector("#dataimg");
 let tableData = document.querySelector("#tableData");
 const getDataFromLocal = () => {
@@ -120,52 +144,75 @@ const getDataFromLocal = () => {
     <button class="eye-btn"><i class="fa fa-pencil"></i></button>
   
     
-    <a href="./view.html?id=${
-      data.id
-    }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
+    <a href="./view.html?id=${data.id
+        }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
  
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
     });
   }
+
+
+
+
+
+
   // start delete codding
-  let i;
+  // Select all delete buttons
   let allDelBtn = document.querySelectorAll(".del-btn");
-  console.log(allDelBtn);
-  for (i = 0; i < allDelBtn.length; i++) {
+
+  // Loop through all delete buttons
+  for (let i = 0; i < allDelBtn.length; i++) {
+    // Set onclick event for each delete button
     allDelBtn[i].onclick = function () {
+      // Get the corresponding row element and its index
       let tr = this.parentElement.parentElement;
       let id = tr.getAttribute("index");
-      swal
-        .fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            tr.remove();
-            userData.splice(id, 1);
-            location.reload();
-            localStorage.setItem("userData", JSON.stringify(userData));
-            swal.fire("Deleted!", "Your file has been deleted.", "success");
-          }
-        });
+      // Show a warning dialog before deleting the row
+      swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Remove the row from the table and delete the corresponding data from the array
+          tr.remove();
+          userData.splice(id, 1);
+
+          // Reload the page and update the local storage with the modified data
+          location.reload();
+          localStorage.setItem("userData", JSON.stringify(userData));
+
+          // Show a success message after deleting the row
+          swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
+
     };
   }
+  // 
+  // 
+  // 
+
+  // 
+  // 
+  // 
   //start update codding
+  // Select all elements with class "eye-btn" and store them in the variable "allEdit"
   var allEdit = document.querySelectorAll(".eye-btn");
+
+  // Loop through all "eye-btn" elements
   for (i = 0; i < allEdit.length; i++) {
+
+    // Add a click event listener to each "eye-btn"
     allEdit[i].onclick = function () {
-      console.log("hello");
 
       let tr = this.parentElement.parentElement;
-      console.log(this.parentElement.parentElement);
 
       let td = tr.getElementsByTagName("TD");
       let index = tr.getAttribute("index");
@@ -231,8 +278,6 @@ uploadPic.addEventListener("change", function (e) {
       fReader.onload = function (e) {
         imgUrl = e.target.result;
         profilePic.src = imgUrl;
-        console.log(imgUrl);
-        console.log(uploadPic.files[0].name);
       };
       fReader.readAsDataURL(uploadPic.files[0]);
     } else {
@@ -249,6 +294,7 @@ let searchEl = document.querySelector("#ProdId");
 searchEl.oninput = function () {
   searchFuc();
 };
+//Searching Function
 
 function searchFuc() {
   let tr = tableData.querySelectorAll("TR");
@@ -281,10 +327,8 @@ function searchFuc() {
 }
 //clear filter codding
 clearFilter.onclick = function () {
-  console.log("hi");
   searchEl.value = "";
   let tr = tableData.querySelectorAll("TR");
-  console.log(searchEl);
   for (i = 0; i < tr.length; i++) {
     tr[i].style.display = "";
   }
@@ -317,7 +361,7 @@ delAllBtn.addEventListener("click", () => {
   }
 });
 
-// /////Form Validation
+//Form Validation
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 

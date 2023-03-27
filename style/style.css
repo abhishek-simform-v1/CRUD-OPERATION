@@ -134,6 +134,7 @@ main .upper-btn-box .btn-right-box select {
   border: none;
   outline: none;
   padding: 10px;
+  background-color: #f2f2f2 !important;
   border-radius: 0.4rem;
 }
 main .upper-btn-box .btn-right-box select option {
