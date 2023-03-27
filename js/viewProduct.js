@@ -20,7 +20,7 @@ products.forEach((element) => {
     </div>
     <div class="product-price-seller">
     <p> Product Description:- </p>
-    <h5 class="card-title">${element.sellerName}</h5> 
+    <h5 class="card-title">${element.description}</h5> 
     Product Price:- 
 
 <p class="card-text">${element.price}</p>

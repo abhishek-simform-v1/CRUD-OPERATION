@@ -1,9 +1,6 @@
 const addToggle = document.querySelector(".addProduct");
 const modal = document.querySelector(".modal");
 const closeIcon = document.querySelector(".close-icon");
-console.log(addToggle);
-
-// addToggle.addEventListener("click", openAddWindow());
 // start all global codding
 let registerForm = document.getElementById("registerForm");
 let allInput = registerForm.querySelectorAll("INPUT");
@@ -22,7 +19,6 @@ let imgUrl;
 
 // toggle modal
 const openAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
   if (modal.classList.contains("hide")) {
     modal.classList.remove("hide");
   }
@@ -38,7 +34,6 @@ const openAddWindow = () => {
   id.innerHTML = randomId(9);
 };
 const closeAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
   if (!modal.classList.contains("hide")) {
     modal.classList.add("hide");
   }
@@ -46,12 +41,20 @@ const closeAddWindow = () => {
   for (i = 0; i < allInput.length; i++) {
     allInput[i].value = "";
   }
-  console.log(modal.classList);
+};
+// close window on close
+closwindow = document.querySelector(".btn-red");
+closwindow.onclick = function () {
+  closeAddWindow();
 };
 
 // start register codding
+
+// Register button click event handler
 registerBtn.onclick = function (e) {
+  // Check if form is valid
   if (validateForm()) {
+    // Generate a random 9-character ID
     const randomId = function (length = 6) {
       let rand = Math.random()
         .toString(36)
@@ -59,48 +62,84 @@ registerBtn.onclick = function (e) {
       return rand;
     };
 
+    // Set the ID element's innerHTML to the generated ID
     id.innerHTML = randomId(9);
+
+    // Prevent the form from submitting
     e.preventDefault();
+
+    // Save registration data to local storage
     registrationData();
+
+    // Retrieve data from local storage and display it
     getDataFromLocal();
+
+    // Set the profile picture source to the default image
     profilePic.src = "./../img/avatar.png";
+
+    // Reset the registration form
     registerForm.reset();
+
+    // Close the registration window
     closeAddWindow();
+
+    // Clear the ID element after 1 second
     setTimeout(() => {
       id.innerHTML = "";
     }, 1000);
   } else {
+    // Prevent the form from submitting if it's not valid
     e.preventDefault();
   }
 };
-const registrationData = () => {
-  userData.push({
-    id: id.innerHTML,
-    productName: productName.value,
-    description: description.value,
-    email: email.value,
-    price: price.value,
-    catogories: catogories.value,
-    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl,
-  });
-  let userString = JSON.stringify(userData);
-  localStorage.setItem("userData", userString);
-  uploadPic.value = "";
 
-  swal.fire("Good job!", "You clicked the button!", "success");
+const registrationData = () => {
+  // declaring a function named registrationData
+  userData.push({
+    // push an object into userData array
+    id: id.innerHTML, // add id from HTML element into the object
+    productName: productName.value, // add productName value into the object
+    description: description.value, // add description value into the object
+    email: email.value, // add email value into the object
+    price: price.value, // add price value into the object
+    catogories: catogories.value, // add categories value into the object
+    profilePic: imgUrl === undefined ? "./../img/avatar.png" : imgUrl, // add profilePic value based on the imgUrl value
+  });
+
+  let userString = JSON.stringify(userData); // convert the userData array into a JSON string
+  localStorage.setItem("userData", userString); // save the JSON string in the local storage with the key "userData"
+  uploadPic.value = ""; // clear the value of uploadPic input field
+
+  swal.fire("Good job!", "You clicked the button!", "success"); // show a success message using SweetAlert library
 };
+
 if (localStorage.getItem("userData") != null) {
-  userData = JSON.parse(localStorage.getItem("userData"));
-  //   console.log(userData);
-}
-// start returning data on pag from localstorage
+  // check if "userData" key is present in the local storage
+  userData = JSON.parse(localStorage.getItem("userData")); // parse the JSON string into userData array
+} // end of the if statement
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// start returning data on page from localstorage
+let dataimg = document.querySelector("#dataimg");
 let tableData = document.querySelector("#tableData");
 const getDataFromLocal = () => {
-  tableData.innerHTML = "";
-  userData.forEach((data, index) => {
-    tableData.innerHTML += `
+  if (userData.length == 0) {
+    dataimg.innerHTML = `          <img src="./img/nodata.jpg" width="80%" height="auto" alt="no data">            <h2><strong>No Product Data to show</strong></h2>         `;
+  } else {
+    dataimg.innerHTML = "";
+    tableData.innerHTML = "";
+    userData.forEach((data, index) => {
+      tableData.innerHTML += `
     <tr class="row" index="${index}" >
-   <td>${index + 1}</td>
+   <td class="srNo">${index + 1}</td>
     <td><img src="${data.profilePic}" width="40" height="40"></td>
     <td>${data.id}</td>
      <td>${data.productName}</td>
@@ -119,15 +158,21 @@ const getDataFromLocal = () => {
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
-  });
+    });
+  }
+
   // start delete codding
-  let i;
+  // Select all delete buttons
   let allDelBtn = document.querySelectorAll(".del-btn");
-  console.log(allDelBtn);
-  for (i = 0; i < allDelBtn.length; i++) {
+
+  // Loop through all delete buttons
+  for (let i = 0; i < allDelBtn.length; i++) {
+    // Set onclick event for each delete button
     allDelBtn[i].onclick = function () {
+      // Get the corresponding row element and its index
       let tr = this.parentElement.parentElement;
       let id = tr.getAttribute("index");
+      // Show a warning dialog before deleting the row
       swal
         .fire({
           title: "Are you sure?",
@@ -140,22 +185,36 @@ const getDataFromLocal = () => {
         })
         .then((result) => {
           if (result.isConfirmed) {
+            // Remove the row from the table and delete the corresponding data from the array
             tr.remove();
             userData.splice(id, 1);
+
+            // Reload the page and update the local storage with the modified data
+            location.reload();
             localStorage.setItem("userData", JSON.stringify(userData));
+
+            // Show a success message after deleting the row
             swal.fire("Deleted!", "Your file has been deleted.", "success");
           }
         });
     };
   }
-  //start update codding
-  var allEdit = document.querySelectorAll(".eye-btn");
-  for (i = 0; i < allEdit.length; i++) {
-    allEdit[i].onclick = function () {
-      console.log("hello");
+  //
+  //
+  //
 
+  //
+  //
+  //
+  //start update codding
+  // Select all elements with class "eye-btn" and store them in the variable "allEdit"
+  var allEdit = document.querySelectorAll(".eye-btn");
+
+  // Loop through all "eye-btn" elements
+  for (i = 0; i < allEdit.length; i++) {
+    // Add a click event listener to each "eye-btn"
+    allEdit[i].onclick = function () {
       let tr = this.parentElement.parentElement;
-      console.log(this.parentElement.parentElement);
 
       let td = tr.getElementsByTagName("TD");
       let index = tr.getAttribute("index");
@@ -164,9 +223,9 @@ const getDataFromLocal = () => {
       let idEl = td[2].innerHTML;
       let productNameEl = td[3].innerHTML;
       let descriptionEl = td[4].innerHTML;
-      let emailEl = td[5].innerHTML;
-      let priceEl = td[6].innerHTML;
-      let catogoriesEl = td[7].innerHTML;
+      let priceEl = td[5].innerHTML;
+      let catogoriesEl = td[6].innerHTML;
+      let emailEl = td[7].innerHTML;
       addToggle.click();
       registerBtn.disabled = true;
       updateBtn.disabled = false;
@@ -178,22 +237,25 @@ const getDataFromLocal = () => {
       catogories.value = catogoriesEl;
       profilePic.src = profilePicEl;
       updateBtn.onclick = function (e) {
+        if (validateForm()) {
+          e.preventDefault();
+          userData[index] = {
+            id: id.innerHTML,
+            productName: productName.value,
+            description: description.value,
+            email: email.value,
+            price: price.value,
+            catogories: catogories.value,
+            profilePic: uploadPic.value === "" ? profilePic.src : imgUrl,
+          };
+          localStorage.setItem("userData", JSON.stringify(userData));
+          getDataFromLocal();
+          profilePic.src = "./../img/avatar.png";
+          location.reload();
+          registerForm.reset();
+          closeAddWindow();
+        }
         e.preventDefault();
-        userData[index] = {
-          id: id.innerHTML,
-          productName: productName.value,
-          description: description.value,
-          email: email.value,
-          price: price.value,
-          catogories: catogories.value,
-          profilePic: uploadPic.value === "" ? profilePic.src : imgUrl,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        getDataFromLocal();
-        profilePic.src = "./../img/avatar.png";
-        location.reload();
-        registerForm.reset();
-        closeAddWindow();
       };
     };
   }
@@ -204,25 +266,37 @@ getDataFromLocal();
 
 let profilePic = document.querySelector("#profilePic");
 let uploadPic = document.querySelector("#uploadField");
-uploadPic.onchange = () => {
-  if (uploadPic.files[0].size < 1000000) {
-    let fReader = new FileReader();
-    fReader.onload = function (e) {
-      imgUrl = e.target.result;
-      profilePic.src = imgUrl;
-      console.log(imgUrl);
-      console.log(uploadPic.files[0].name);
-    };
-    fReader.readAsDataURL(uploadPic.files[0]);
+
+uploadPic.addEventListener("change", function (e) {
+  let imgFile = e.target.files[0];
+  if (e.target.files[0].size <= 200000) {
+    if (
+      imgFile.type == "image/png" ||
+      imgFile.type == "image/jpeg" ||
+      imgFile.type == "image/jpg" ||
+      imgFile.type == "image/gif"
+    ) {
+      let fReader = new FileReader();
+      fReader.onload = function (e) {
+        imgUrl = e.target.result;
+        profilePic.src = imgUrl;
+      };
+      fReader.readAsDataURL(uploadPic.files[0]);
+    } else {
+      alert("File type is not image");
+    }
   } else {
     alert("File Size is too Long");
+
+    alert("File type is not image");
   }
-};
-// start search codding
+});
+
 let searchEl = document.querySelector("#ProdId");
 searchEl.oninput = function () {
   searchFuc();
 };
+//Searching Function
 
 function searchFuc() {
   let tr = tableData.querySelectorAll("TR");
@@ -255,10 +329,8 @@ function searchFuc() {
 }
 //clear filter codding
 clearFilter.onclick = function () {
-  console.log("hi");
   searchEl.value = "";
   let tr = tableData.querySelectorAll("TR");
-  console.log(searchEl);
   for (i = 0; i < tr.length; i++) {
     tr[i].style.display = "";
   }
@@ -290,122 +362,21 @@ delAllBtn.addEventListener("click", () => {
     swal.fire("Check The Box !!!", "Please Check The Box", "warning");
   }
 });
-// data sorting by dropdown
-let ascBtn = document.querySelector("#asc");
-let productFilter = document.querySelector("#productFilter");
-ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
 
-ascBtn.onclick = function () {
-  if (ascBtn.classList.contains("asc")) {
-    productFilter.onclick = function () {
-      console.log("changing");
-      let value = this.value;
-      if (value == "id") {
-        userData.sort((a, b) =>
-          a.id.toLowerCase() > b.id.toLowerCase() ? -1 : 1
-        );
-        getDataFromLocal();
-      } else if (value == "productName") {
-        userData.sort((a, b) =>
-          a.productName.toLowerCase() > b.productName.toLowerCase() ? -1 : 1
-        );
-        getDataFromLocal();
-      } else if (value == "description") {
-        userData.sort((a, b) =>
-          a.description.toLowerCase() > b.description.toLowerCase() ? -1 : 1
-        );
-        getDataFromLocal();
-      } else if (value == "email") {
-        userData.sort((a, b) =>
-          a.email.toLowerCase() > b.email.toLowerCase() ? -1 : 1
-        );
-        getDataFromLocal();
-      } else if (value == "price") {
-        userData.sort((a, b) =>
-          a.price.toLowerCase() > b.price.toLowerCase() ? -1 : 1
-        );
-        console.log("pricedeccending");
-
-        getDataFromLocal();
-      } else if (value == "catogories") {
-        userData.sort((a, b) =>
-          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? -1 : 1
-        );
-        getDataFromLocal();
-      } else if (value == "all") {
-        getDataFromLocal();
-      }
-      console.log(userData);
-      getDataFromLocal();
-      console.log("hi");
-    };
-    console.log("hello");
-    ascBtn.classList.remove("asc");
-    ascBtn.classList.add("dsc");
-    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in Accending Order`;
-  } else {
-    productFilter.onclick = function () {
-      console.log("changing");
-      let value = this.value;
-      if (value == "id") {
-        userData.sort((a, b) =>
-          a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1
-        );
-        getDataFromLocal();
-      } else if (value == "productName") {
-        userData.sort((a, b) =>
-          a.productName.toLowerCase() > b.productName.toLowerCase() ? 1 : -1
-        );
-        getDataFromLocal();
-      } else if (value == "description") {
-        userData.sort((a, b) =>
-          a.description.toLowerCase() > b.description.toLowerCase() ? 1 : -1
-        );
-        getDataFromLocal();
-      } else if (value == "email") {
-        userData.sort((a, b) =>
-          a.email.toLowerCase() > b.email.toLowerCase() ? 1 : -1
-        );
-        getDataFromLocal();
-      } else if (value == "price") {
-        userData.sort((a, b) =>
-          a.price.toLowerCase() > b.price.toLowerCase() ? 1 : -1
-        );
-        console.log("priceaccending");
-        getDataFromLocal();
-      } else if (value == "catogories") {
-        userData.sort((a, b) =>
-          a.catogories.toLowerCase() > b.catogories.toLowerCase() ? 1 : -1
-        );
-        getDataFromLocal();
-      } else if (value == "all") {
-        getDataFromLocal();
-      }
-      console.log(userData);
-      getDataFromLocal();
-      console.log("hi");
-    };
-    console.log("hi");
-    ascBtn.classList.add("asc");
-    ascBtn.classList.remove("dsc");
-    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
-  }
-};
-let sortBy = "asc";
-
-// /////Form Validation
+//Form Validation
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (productName.value == "") {
+  let formFormate = /^\s*(?!\s$)\S.*\S\s*$/;
+  if (productName.value == "" || !productName.value.match(formFormate)) {
     alert("Name must be filled out");
     return false;
-  } else if (description.value == "") {
+  } else if (description.value == "" || !description.value.match(formFormate)) {
     alert("description must be filled out");
     return false;
-  } else if (price.value == "") {
+  } else if (price.value == "" || !price.value.match(formFormate)) {
     alert("price must be filled out");
     return false;
-  } else if (catogories.value == "") {
+  } else if (catogories.value == "" || !catogories.value.match(formFormate)) {
     alert("catogories must be filled out");
     return false;
   } else if (!email.value.match(mailformat)) {

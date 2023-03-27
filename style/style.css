@@ -134,6 +134,7 @@ main .upper-btn-box .btn-right-box select {
   border: none;
   outline: none;
   padding: 10px;
+  background-color: #f2f2f2 !important;
   border-radius: 0.4rem;
 }
 main .upper-btn-box .btn-right-box select option {
@@ -142,6 +143,10 @@ main .upper-btn-box .btn-right-box select option {
 main .table-box {
   width: 100%;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: auto;
 }
 main .table-box table {
@@ -174,6 +179,7 @@ main .table-box table tr td button {
   font-size: 16px;
   margin: 0px;
   transition: all 0.3s;
+  cursor: pointer;
 }
 main .table-box table tr td button:last-child {
   background-color: rgb(233, 97, 97);
@@ -184,6 +190,13 @@ main .table-box table tr td button:hover {
 main .table-box table tr td button:hover:last-child {
   background-color: rgb(255, 143, 143);
 }
+main .table-box #dataimg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
 main .hide {
   display: none !important;
 }
@@ -192,15 +205,6 @@ main .modal {
   height: auto;
   display: flex;
   flex-wrap: wrap;
-}
-main .modal .close-icon {
-  right: -19px;
-  top: -40px;
-  font-size: 40px;
-  background-color: #fff;
-  border-radius: 555px;
-  color: #e96161;
-  cursor: pointer;
 }
 main .modal .left-modal {
   width: 30%;
@@ -247,7 +251,8 @@ main .modal .left-modal .img-box #profilePic {
   cursor: pointer;
 }
 main .modal .left-modal .img-box:hover {
-  background-color: rgba(40, 137, 173, 0.3764705882);
+  background-color: rgba(40, 137, 173, 0.1098039216);
+  border: dotted 5px #2889ad;
 }
 main .modal .left-modal .img-box::after {
   content: "add Image or Update Image";
@@ -260,6 +265,20 @@ main .modal .right-modal {
   width: 70%;
   height: 100%;
   padding: 10px;
+}
+main .modal .right-modal .btn-red {
+  float: right;
+  font-size: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #e96161;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  cursor: pointer;
+}
+main .modal .right-modal .btn-red:hover {
+  background-color: #ff8282 !important;
+  color: #fff;
 }
 main .modal .right-modal .input-box {
   width: 100%;

@@ -28,31 +28,33 @@
       </div>
       <div class="btn-right-box">
         <div class="search-Field">
-          <input type="text" name="search" id="ProdId" placeholder="Enter Employe id" />
+          <input type="text" name="search" id="ProdId" placeholder="Enter Product id" />
           <i class="fa fa-search search-icon"> </i>
         </div>
 
         <select id="productFilter">
-          <option id="allSort" value="all">ALL</option>
-          <option value="id">Product Id</option>
-          <option value="productName">Product Name</option>
-          <option value="description">description</option>
-          <option value="price">Price</option>
-          <option value="Catogories">Catogories</option>
-          <option value="email">E-mail</option>
+          <option id="allSort" value="all">Sort By ALL</option>
+          <option value="id">Sort By Product Id</option>
+          <option value="productName">Sort By Product Name</option>
+          <option value="description">Sort By description</option>
+          <option value="price">Sort By Price</option>
+          <option value="catogories">Sort By Catogories</option>
+          <option value="email">Sort By E-mail</option>
         </select>
-        <button id="asc" class="asc"></button>
+
+        <button id="asc" class="asc">&nbsp;Sort in Deccending Order</button>
       </div>
     </section>
     <section class="modal hide">
       <section class="left-modal">
         <div class="img-box">
           <img id="profilePic" src="./img/avatar.png" alt="avatar image" width="150" height="150" />
-          <input type="file" id="uploadField" required />
+          <input type="file" id="uploadField" required accept="image/png, image/gif, image/jpeg" />
         </div>
       </section>
       <section class="right-modal">
         <form name="myform" id="registerForm">
+          <button class="btn-red">close</button>
           <div class="input-box">
             <label for="id" name="id">Product Id</label>
             <div id="id"></div>
@@ -76,7 +78,7 @@
 
           <div class="input-box">
             <label for="email">Seller E-mail</label>
-            <input type="text" id="email" required></input>
+            <input type="email" id="email" required></input>
           </div>
           <div>
             <button id="register-btn">Register</button>
@@ -101,14 +103,17 @@
         </tr>
         <tbody id="tableData">
 
+
         </tbody>
 
       </table>
+      <div id="dataimg"></div>
     </section>
 
   </main>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
   <script src="./js/index.js"></script>
+  <script src="./js/sorting.js"></script>
 </body>
 
 </html>
