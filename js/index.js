@@ -49,6 +49,7 @@ const closeAddWindow = () => {
   console.log(modal.classList);
 };
 // start register codding
+
 registerBtn.onclick = function (e) {
   if (validateForm()) {
     const randomId = function (length = 6) {
@@ -93,11 +94,17 @@ if (localStorage.getItem("userData") != null) {
   //   console.log(userData);
 }
 // start returning data on pag from localstorage
+let dataimg = document.querySelector("#dataimg");
+
 let tableData = document.querySelector("#tableData");
 const getDataFromLocal = () => {
-  tableData.innerHTML = "";
-  userData.forEach((data, index) => {
-    tableData.innerHTML += `
+  if (userData.length == 0) {
+    dataimg.innerHTML = `          <img src="./img/nodata.jpg" width="80%" height="auto" alt="no data">            <h2><strong>No Product Data to show</strong></h2>         `;
+  } else {
+    dataimg.innerHTML = "";
+    tableData.innerHTML = "";
+    userData.forEach((data, index) => {
+      tableData.innerHTML += `
     <tr class="row" index="${index}" >
    <td>${index + 1}</td>
     <td><img src="${data.profilePic}" width="40" height="40"></td>
@@ -118,7 +125,8 @@ const getDataFromLocal = () => {
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
-  });
+    });
+  }
   // start delete codding
   let i;
   let allDelBtn = document.querySelectorAll(".del-btn");
@@ -141,6 +149,7 @@ const getDataFromLocal = () => {
           if (result.isConfirmed) {
             tr.remove();
             userData.splice(id, 1);
+            location.reload();
             localStorage.setItem("userData", JSON.stringify(userData));
             swal.fire("Deleted!", "Your file has been deleted.", "success");
           }
@@ -291,7 +300,7 @@ delAllBtn.addEventListener("click", () => {
 // data sorting by dropdown
 let ascBtn = document.querySelector("#asc");
 let productFilter = document.querySelector("#productFilter");
-ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
+ascBtn.innerHTML = `<span class="asc-arrow"><i class="fa-solid fa-down-right"></i></span>&nbsp;Sort in deccending Order`;
 
 ascBtn.onclick = function () {
   if (ascBtn.classList.contains("asc")) {
@@ -340,7 +349,7 @@ ascBtn.onclick = function () {
     console.log("hello");
     ascBtn.classList.remove("asc");
     ascBtn.classList.add("dsc");
-    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in Accending Order`;
+    ascBtn.innerHTML = `<span class="asc-arrow"><i class="fa-solid fa-up-right"></i></span>&nbsp;Sort in Accending Order`;
   } else {
     productFilter.onclick = function () {
       console.log("changing");
@@ -386,7 +395,7 @@ ascBtn.onclick = function () {
     console.log("hi");
     ascBtn.classList.add("asc");
     ascBtn.classList.remove("dsc");
-    ascBtn.innerHTML = `<span class="asc-arrow"></span>&nbsp;Sort in deccending Order`;
+    ascBtn.innerHTML = `<span class="asc-arrow"><i class="fa-solid fa-down-right"></i></span>&nbsp;Sort in deccending Order`;
   }
 };
 let sortBy = "asc";

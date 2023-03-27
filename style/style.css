@@ -142,6 +142,10 @@ main .upper-btn-box .btn-right-box select option {
 main .table-box {
   width: 100%;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow: auto;
 }
 main .table-box table {
@@ -183,6 +187,13 @@ main .table-box table tr td button:hover {
 }
 main .table-box table tr td button:hover:last-child {
   background-color: rgb(255, 143, 143);
+}
+main .table-box #dataimg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
 }
 main .hide {
   display: none !important;
