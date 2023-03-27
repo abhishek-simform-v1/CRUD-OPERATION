@@ -23,10 +23,32 @@ let imgUrl;
 // toggle modal
 const openAddWindow = () => {
   console.log(modal.classList.contains("hide"));
-  if (modal.classList.contains("hide")) {
-    modal.classList.remove("hide");
-    registerBtn.disabled = false;
-    updateBtn.disabled = true;
+
+  registerBtn.disabled = false;
+  updateBtn.disabled = true;
+  const randomId = function (length = 6) {
+    let rand = Math.random()
+      .toString(36)
+      .substring(2, length + 2);
+    return rand;
+  };
+
+  id.innerHTML = randomId(9);
+
+};
+const closeAddWindow = () => {
+  console.log(modal.classList.contains("hide"));
+
+  let i;
+  for (i = 0; i < allInput.length; i++) {
+    allInput[i].value = "";
+  }
+  console.log(modal.classList);
+
+};
+// start register codding
+registerBtn.onclick = function (e) {
+  if (validateForm()) {
     const randomId = function (length = 6) {
       let rand = Math.random()
         .toString(36)
@@ -35,29 +57,15 @@ const openAddWindow = () => {
     };
 
     id.innerHTML = randomId(9);
-  }
-};
-const closeAddWindow = () => {
-  console.log(modal.classList.contains("hide"));
-  if (!modal.classList.contains("hide")) {
-    modal.classList.add("hide");
-    let i;
-    for (i = 0; i < allInput.length; i++) {
-      allInput[i].value = "";
-    }
-    console.log(modal.classList);
-  }
-};
-// start register codding
-registerBtn.onclick = function (e) {
-  if (validateForm()) {
-
     e.preventDefault();
     registrationData();
     getDataFromLocal();
     profilePic.src = "./../img/avatar.png";
     registerForm.reset();
     closeAddWindow();
+    setTimeout(() => {
+      id.innerHTML = "";
+    }, 1000);
   }
   else {
     e.preventDefault();
@@ -90,21 +98,21 @@ const getDataFromLocal = () => {
   tableData.innerHTML = "";
   userData.forEach((data, index) => {
     tableData.innerHTML += `
-    <tr index="${index}" >
-    <td>${index + 1}</td>
+    <tr class="row" index="${index}" >
+   <td>${index + 1}</td>
     <td><img src="${data.profilePic}" width="40" height="40"></td>
     <td>${data.id}</td>
-    <td>${data.productName}</td>
+     <td>${data.productName}</td>
+    <td class="desc">${data.sellerName}</td>
     <td>${data.price}</td>
     <td>${data.catogories}</td>
-    <td>${data.sellerName}</td>
     <td>${data.email}</td>
     <td>
     <button class="eye-btn"><i class="fa fa-pencil"></i></button>
-    <button class="eye-btn"><i class="fa fa-eye"></i>
-    <a href="./view.html?id=${data.id}" class="card-link">View</a>
+  
     
-    </button>
+    <a href="./view.html?id=${data.id}" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
+ 
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
@@ -141,6 +149,8 @@ const getDataFromLocal = () => {
   var allEdit = document.querySelectorAll(".eye-btn");
   for (i = 0; i < allEdit.length; i++) {
     allEdit[i].onclick = function () {
+      console.log("hello");
+
       let tr = this.parentElement.parentElement;
       console.log(this.parentElement.parentElement);
 
@@ -327,3 +337,4 @@ function validateForm() {
     return true;
   }
 }
+

@@ -1,0 +1,51 @@
+#container {
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  gap: 1em;
+  font-family: 'Poppins';
+  .go-back {
+    background-color: #2889ad;
+    max-width: 100px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: flex;
+    place-content: center;
+    color: #f2f2f2;
+    padding: 1em;
+  }
+  .product-id-name {
+    .card-header {
+      background-color: #2889ad !important;
+      color: #f2f2f2;
+      padding: 1em;
+      max-width: fit-content;
+      border-radius: 1em;
+    }
+    .card-title {
+      color: #2889ad !important;
+    }
+  }
+}
+.product-content {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+.product-pic {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.product-pic img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 22px;
+}
