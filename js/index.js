@@ -88,8 +88,10 @@ registerBtn.onclick = function (e) {
   }
 };
 
-const registrationData = () => { // declaring a function named registrationData
-  userData.push({ // push an object into userData array
+const registrationData = () => {
+  // declaring a function named registrationData
+  userData.push({
+    // push an object into userData array
     id: id.innerHTML, // add id from HTML element into the object
     productName: productName.value, // add productName value into the object
     description: description.value, // add description value into the object
@@ -106,20 +108,20 @@ const registrationData = () => { // declaring a function named registrationData
   swal.fire("Good job!", "You clicked the button!", "success"); // show a success message using SweetAlert library
 };
 
-if (localStorage.getItem("userData") != null) { // check if "userData" key is present in the local storage
+if (localStorage.getItem("userData") != null) {
+  // check if "userData" key is present in the local storage
   userData = JSON.parse(localStorage.getItem("userData")); // parse the JSON string into userData array
-
 } // end of the if statement
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // start returning data on page from localstorage
 let dataimg = document.querySelector("#dataimg");
 let tableData = document.querySelector("#tableData");
@@ -144,19 +146,15 @@ const getDataFromLocal = () => {
     <button class="eye-btn"><i class="fa fa-pencil"></i></button>
   
     
-    <a href="./view.html?id=${data.id
-        }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
+    <a href="./view.html?id=${
+      data.id
+    }" class="card-link">  <button><i class="fa fa-eye"></i>   </button></a>
  
       <button class="del-btn"><i class="fa fa-trash"></i></button>
     </td>
   </tr>`;
     });
   }
-
-
-
-
-
 
   // start delete codding
   // Select all delete buttons
@@ -170,48 +168,47 @@ const getDataFromLocal = () => {
       let tr = this.parentElement.parentElement;
       let id = tr.getAttribute("index");
       // Show a warning dialog before deleting the row
-      swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Remove the row from the table and delete the corresponding data from the array
-          tr.remove();
-          userData.splice(id, 1);
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // Remove the row from the table and delete the corresponding data from the array
+            tr.remove();
+            userData.splice(id, 1);
 
-          // Reload the page and update the local storage with the modified data
-          location.reload();
-          localStorage.setItem("userData", JSON.stringify(userData));
+            // Reload the page and update the local storage with the modified data
+            location.reload();
+            localStorage.setItem("userData", JSON.stringify(userData));
 
-          // Show a success message after deleting the row
-          swal.fire("Deleted!", "Your file has been deleted.", "success");
-        }
-      });
-
+            // Show a success message after deleting the row
+            swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        });
     };
   }
-  // 
-  // 
-  // 
+  //
+  //
+  //
 
-  // 
-  // 
-  // 
+  //
+  //
+  //
   //start update codding
   // Select all elements with class "eye-btn" and store them in the variable "allEdit"
   var allEdit = document.querySelectorAll(".eye-btn");
 
   // Loop through all "eye-btn" elements
   for (i = 0; i < allEdit.length; i++) {
-
     // Add a click event listener to each "eye-btn"
     allEdit[i].onclick = function () {
-
       let tr = this.parentElement.parentElement;
 
       let td = tr.getElementsByTagName("TD");
@@ -364,17 +361,17 @@ delAllBtn.addEventListener("click", () => {
 //Form Validation
 function validateForm() {
   let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-  if (productName.value == "" || productName.value == " ") {
+  let formFormate = /^\s*(?!\s$)\S.*\S\s*$/;
+  if (productName.value == "" || !productName.value.match(formFormate)) {
     alert("Name must be filled out");
     return false;
-  } else if (description.value == "" || description.value == " ") {
+  } else if (description.value == "" || !description.value.match(formFormate)) {
     alert("description must be filled out");
     return false;
-  } else if (price.value == "" || price.value == " ") {
+  } else if (price.value == "" || !price.value.match(formFormate)) {
     alert("price must be filled out");
     return false;
-  } else if (catogories.value == "" || catogories.value == " ") {
+  } else if (catogories.value == "" || !catogories.value.match(formFormate)) {
     alert("catogories must be filled out");
     return false;
   } else if (!email.value.match(mailformat)) {
@@ -383,4 +380,9 @@ function validateForm() {
   } else {
     return true;
   }
+}
+
+if (window.location.href == "https://abhishek-crud.netlify.app/view.html") {
+  window.location.href =
+    "https://deluxe-semolina-2123d4.netlify.app/index.html";
 }
