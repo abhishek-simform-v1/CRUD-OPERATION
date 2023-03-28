@@ -188,6 +188,7 @@ main {
             font-size: 16px;
             margin: 0px;
             transition: all 0.3s;
+            cursor: pointer;
             &:last-child {
               background-color: rgb(233, 97, 97);
             }
@@ -217,20 +218,10 @@ main {
 
   .modal {
     padding: 10px;
-
     height: auto;
     display: flex;
     flex-wrap: wrap;
-    .close-icon {
-      // position: absolute;
-      right: -19px;
-      top: -40px;
-      font-size: 40px;
-      background-color: #fff;
-      border-radius: 555px;
-      color: #e96161;
-      cursor: pointer;
-    }
+    
 
     .left-modal {
       width: 30%;
@@ -296,7 +287,19 @@ main {
       width: 70%;
       height: 100%;
       padding: 10px;
-
+      .btn-red {
+        float: right;
+        font-size: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        color: #e96161;
+        max-width: fit-content;
+        cursor: pointer;
+        &:hover{
+          background-color: #ff8282 !important;
+          color: #fff;
+        }
+      }
       .input-box {
         width: 100%;
         display: flex;

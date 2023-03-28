@@ -42,6 +42,11 @@ const closeAddWindow = () => {
     allInput[i].value = "";
   }
 };
+// close window on close
+closwindow = document.querySelector(".btn-red");
+closwindow.onclick = function () {
+  closeAddWindow();
+};
 
 // start register codding
 
@@ -380,9 +385,4 @@ function validateForm() {
   } else {
     return true;
   }
-}
-
-if (window.location.href == "https://abhishek-crud.netlify.app/view.html") {
-  window.location.href =
-    "https://deluxe-semolina-2123d4.netlify.app/index.html";
 }
